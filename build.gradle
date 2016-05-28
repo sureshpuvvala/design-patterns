@@ -1,0 +1,38 @@
+
+// Apply the java plugin to add support for Java
+apply plugin: 'java'
+apply plugin: 'jetty'
+apply plugin: 'war'
+apply plugin: 'jacoco'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    
+    jcenter()
+    mavenCentral()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    // The production code uses the SLF4J logging API at compile time
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    testCompile 'org.testng:testng:6.8.1'
+    testCompile "org.mockito:mockito-core:1.+"
+    testCompile 'junit:junit:4.12'
+     
+    // 'test.useTestNG()' to your build script.
+    
+}
+
+//In this section you declare the task for Jacoco Test Report.
+jacoco {
+    toolVersion = "0.7.6.201602180812"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/jacocoHtml"
+    }
+}
